@@ -1,4 +1,5 @@
 package com.mycompany.app;
+
 import static spark.Spark.*;
 
 import java.util.HashMap;
@@ -9,16 +10,22 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
-
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
-    public static void main( String[] args )
-    {
-       get("/", (req, res) -> "Hello, World");
+    public static boolean search(ArrayList<Integer> array, int e) {
+      System.out.println("inside search");
+      if (array == null) return false;
+
+      for (int elt : array) {
+        if (elt == e) return true;
+      }
+      return false;
+    }
+
+    public static void main(String[] args) {
+        port(getHerokuAssignedPort());
+
+        get("/", (req, res) -> "Hello, World");
 
         post("/compute", (req, res) -> {
           //System.out.println(req.queryParams("input1"));
@@ -41,7 +48,7 @@ public class App
 
           boolean result = App.search(inputList, input2AsInt);
 
-         Map map = new HashMap();
+          Map map = new HashMap();
           map.put("result", result);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
@@ -56,13 +63,11 @@ public class App
             new MustacheTemplateEngine());
     }
 
-public static boolean search(ArrayList<Integer> array, int e) {
-        System.out.println("inside search");
-        if (array == null) return false;
-  for (int elt : array) {
-          if (elt == e) return true;
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
-        return false;
-      }
-
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
 }
