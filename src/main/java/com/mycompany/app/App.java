@@ -12,15 +12,51 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 public class App
 {
-    public static boolean search(ArrayList<Integer> array, int e) {
-      System.out.println("inside search");
-      if (array == null) return false;
 
-      for (int elt : array) {
-        if (elt == e) return true;
-      }
-      return false;
-    }
+    public static boolean search(ArrayList<Integer> array, int number1,
+			int number2) {
+
+		System.out.println("Searching..");
+		if (array == null) {
+			return false;
+		}
+
+		if(number1<0){return false;}
+		if(number2<0){return false;}
+
+		int sumOfNumbers = number1 + number2;
+		int smallestOfList = 0;
+		int biggestOfList = 0;
+
+		for (int i = 0; i < array.size(); i++) {
+
+			if (i == 0) {
+				smallestOfList = i;
+			} else {
+				if (i < smallestOfList) {
+					smallestOfList = i;
+				}
+			}
+
+		}
+
+		for (int j = 0; j < array.size(); j++) {
+
+			if (j == 0) {
+				biggestOfList = j;
+			} else {
+				if (j > biggestOfList) {
+					biggestOfList = j;
+				}
+			}
+
+		}
+
+		if ((sumOfNumbers <= biggestOfList) && (sumOfNumbers >= smallestOfList)) {
+			return true;
+		}
+		return false;
+	}
 
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
@@ -45,8 +81,11 @@ public class App
 
           String input2 = req.queryParams("input2").replaceAll("\\s","");
           int input2AsInt = Integer.parseInt(input2);
+	  String input3 = req.queryParams("input3").replaceAll("\\s","");
+	  int input3AsInt = Integer.parseInt(input2);
 
-          boolean result = App.search(inputList, input2AsInt);
+
+          boolean result = App.search(inputList, input2AsInt , input3AsInt);
 
           Map map = new HashMap();
           map.put("result", result);
