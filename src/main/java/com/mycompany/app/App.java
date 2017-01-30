@@ -55,8 +55,8 @@ public class App
 			}
 
 		}
-		if ((sumOfNumbers <= biggestOfList) && (sumOfNumbers >= smallestOfList)) {
-			System.out.println("girdi");
+	if ((sumOfNumbers <= biggestOfList) && (sumOfNumbers >= smallestOfList)) {
+
 			return true;
 		} else {
 			return false;
