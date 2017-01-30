@@ -17,24 +17,28 @@ public class App
 			int number2) {
 
 		System.out.println("Searching..");
+
 		if (array == null) {
 			return false;
 		}
 
-		if(number1<0){return false;}
-		if(number2<0){return false;}
+		if (number1 < 0) {
+			return false;
+		}
+		if (number2 < 0) {
+			return false;
+		}
 
 		int sumOfNumbers = number1 + number2;
 		int smallestOfList = 0;
 		int biggestOfList = 0;
-
 		for (int i = 0; i < array.size(); i++) {
 
 			if (i == 0) {
-				smallestOfList = i;
+				smallestOfList = array.get(i);
 			} else {
-				if (i < smallestOfList) {
-					smallestOfList = i;
+				if (array.get(i) < smallestOfList) {
+					smallestOfList = array.get(i);
 				}
 			}
 
@@ -43,20 +47,22 @@ public class App
 		for (int j = 0; j < array.size(); j++) {
 
 			if (j == 0) {
-				biggestOfList = j;
+				biggestOfList = array.get(j);
 			} else {
-				if (j > biggestOfList) {
-					biggestOfList = j;
+				if (array.get(j) > biggestOfList) {
+					biggestOfList = array.get(j);
 				}
 			}
 
 		}
-
 		if ((sumOfNumbers <= biggestOfList) && (sumOfNumbers >= smallestOfList)) {
+			System.out.println("girdi");
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
+
 
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
